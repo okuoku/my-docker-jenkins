@@ -1,0 +1,14 @@
+services:
+  jenkins:
+    isolation: process
+    image: jenkins-server
+    ports:
+      - 8080:8080
+      - 60000:60000
+    volumes:
+      - e:/jenkins:c:/ProgramData/Jenkins/JenkinsHome:rw
+  agent-testing:
+    isolation: process
+    image: jenkins-agent
+    command: -url http://192.168.1.18:8080/ -secret c2791b336196a5c7da59ff90eff37f451defe38b7b8eb18e47a3b3a566c1b214  -workDir c:/Temp -name Temp
+
