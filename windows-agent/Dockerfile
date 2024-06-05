@@ -135,4 +135,7 @@ LABEL `
     org.opencontainers.image.source="https://github.com/jenkinsci/docker-agent" `
     org.opencontainers.image.licenses="MIT"
 
+RUN reg add 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance' /v MaintenanceDisabled /t REG_DWORD /reg:64 /f /d 1
+RUN reg add 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance' /v WakeUp /t REG_DWORD /reg:64 /f /d 0
+
 ENTRYPOINT ["powershell.exe", "-f", "C:/ProgramData/Jenkins/jenkins-agent.ps1"]

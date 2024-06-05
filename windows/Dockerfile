@@ -135,7 +135,11 @@ COPY jenkins.ps1 C:/ProgramData/Jenkins
 # See https://github.com/jenkinsci/plugin-installation-manager-tool#cli-options for information on parameters for jenkins-plugin-cli.ps1 for installing plugins into the docker image
 COPY jenkins-plugin-cli.ps1 C:/ProgramData/Jenkins
 
+RUN reg add 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance' /v MaintenanceDisabled /t REG_DWORD /reg:64 /f /d 1
+RUN reg add 'HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Schedule\Maintenance' /v WakeUp /t REG_DWORD /reg:64 /f /d 0
+
 ENTRYPOINT ["powershell.exe", "-f", "C:/ProgramData/Jenkins/jenkins.ps1"]
+
 
 # metadata labels
 LABEL `
